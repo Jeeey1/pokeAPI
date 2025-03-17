@@ -152,17 +152,42 @@ async function mostraEvolucao(nomePoke) {
 
   const chainEvolucao = await fetch(urlChainEvolucao);
   const chainJson = await chainEvolucao.json();
-  console.log(chainJson);
-  console.log(chainJson.chain.evolves_to[0].lenght);
+  const pokeBase = chainJson.chain.species.name;
+  const pokeEvo1 = chainJson.chain.evolves_to[0].species.name;
+  const pokeEvo2 = chainJson.chain.evolves_to[0].evolves_to[0].species.name;
+  if (pokeBase === nomePoke) {
+    const newEvo = document.createElement("img");
 
-  if (chainJson.chain.species.name === nomePoke) {
-    if (chainJson.chain.evolves_to[0]) {
-      const newElement = document.createElement("img");
-      const awaitDados = await fetch(
-        `https://pokeapi.co/api/v2/pokemon-species/${nomePoke}`
-      );
-      const dadosJson = await awaitDados.json();
-      console.log(dadosJson);
+    if (pokeEvo1) {
+      const selectEvo1 = sectionEvolucao.querySelector(".evo1");
+      fetch(`https://pokeapi.co/api/v2/pokemon/${pokeEvo1}`)
+        .then((r) => r.json())
+        .then((b) => {
+          console.log(b);
+          newEvo.src = b.sprites.front_default;
+          newEvo.classList.add("evo1");
+          if (!selectEvo1) {
+            sectionEvolucao.appendChild(newEvo);
+          }
+        });
+    } else {
+      console.log("evolucao 1 nao existe");
+    }
+
+    if (pokeEvo2) {
+      const selectEvo2 = sectionEvolucao.querySelector(".evo2");
+      fetch(`https://pokeapi.co/api/v2/pokemon/${pokeEvo2}`)
+        .then((r) => r.json())
+        .then((b) => {
+          console.log(b);
+          newEvo.src = b.sprites.front_default;
+          newEvo.classList.add("evo2");
+          if (!selectEvo2) {
+            sectionEvolucao.appendChild(newEvo);
+          }
+        });
+    } else {
+      console.log("Evolucao 2 nao existe");
     }
   }
 }
