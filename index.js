@@ -136,7 +136,7 @@ async function mostraModal() {
 
       if (pokeJSON.height / 10 >= 1)
         alturaPokemon.innerText = pokeJSON.height / 10 + "m";
-      else alturaPokemon.innerText = pokeJSON.height / 10 + "cm";
+      else alturaPokemon.innerText = pokeJSON.height * 10 + "cm";
 
       pesoPokemon.innerText = pokeJSON.weight / 10 + "kg";
       habilidade.innerText = pokeJSON.abilities[0].ability.name;
@@ -292,7 +292,7 @@ function pesquisaModal() {
         mudaCorPokemon(b.types[0].type.name, imgPrincipal);
 
         if (b.height / 10 >= 1) alturaPokemon.innerText = b.height / 10 + "m";
-        else alturaPokemon.innerText = b.height / 10 + "cm";
+        else alturaPokemon.innerText = b.height + "m";
 
         pesoPokemon.innerText = b.weight / 10 + "kg";
         habilidade.innerText = b.abilities[0].ability.name;
