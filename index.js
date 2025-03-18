@@ -2,7 +2,6 @@ const pokemonsContainer = document.querySelectorAll(".container-pokemon");
 const modal = document.querySelector("dialog");
 const inputPesquisa = document.getElementById("pesquisa");
 const btnPesquisa = document.querySelector(".section-pesquisa button");
-console.log(btnPesquisa);
 
 btnPesquisa.addEventListener("click", pesquisaModal);
 
@@ -27,7 +26,6 @@ function mostraPokemon() {
           b.types[0].type.name.substring(1);
 
         mudaCorPokemon(b.types[0].type.name, idPokemon);
-        console.log(b);
       });
   });
 }
@@ -127,7 +125,6 @@ async function mostraModal() {
         `https://pokeapi.co/api/v2/pokemon/${idPokemonString}`
       );
       const pokeJSON = await recebePoke.json();
-      console.log(pokeJSON);
 
       idPokemonModal.innerText = "#" + pokeJSON.id;
       nomePokemonModal.innerText = pokeJSON.name;
@@ -193,8 +190,6 @@ async function mostraEvolucao(nomePoke) {
             Evolucao1.classList.add("evo1");
           }
         });
-    } else {
-      console.log("evolucao 1 nao existe");
     }
 
     if (chainJson.chain.evolves_to[0].evolves_to[0]) {
@@ -211,8 +206,6 @@ async function mostraEvolucao(nomePoke) {
             Evolucao2.classList.add("evo2");
           }
         });
-    } else {
-      console.log("Evolucao 2 nao existe");
     }
   } else if (nomePoke == chainJson.chain.evolves_to[0].species.name) {
     // verifica se o pokemon no parâmetro é a evolucao 1
