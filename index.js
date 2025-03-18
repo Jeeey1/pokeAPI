@@ -109,7 +109,7 @@ function mudaCorPokemon(tipo, id) {
   }
 }
 
-function mostraModal() {
+async function mostraModal() {
   pokemonsContainer.forEach((item) => {
     const idPokemon = item.querySelector(".id-pokemon").innerText;
     const idPokemonString = idPokemon.replace("#", "");
@@ -121,27 +121,31 @@ function mostraModal() {
     const pesoPokemon = modal.querySelector(".peso-pokemon");
     const habilidade = modal.querySelector(".habilidade-pokemon");
 
-    item.addEventListener("click", () => {
+    item.addEventListener("click", async function () {
       modal.showModal();
-      fetch(`https://pokeapi.co/api/v2/pokemon/${idPokemonString}`)
-        .then((r) => r.json())
-        .then((b) => {
-          idPokemonModal.innerText = "#" + b.id;
-          nomePokemonModal.innerText = b.name;
-          imgPrincipal.src = b.sprites.front_default;
-          mudaCorPokemon(b.types[0].type.name, imgPrincipal);
+      const recebePoke = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${idPokemonString}`
+      );
+      const pokeJSON = await recebePoke.json();
+      console.log(pokeJSON);
 
-          if (b.height / 10 >= 1) alturaPokemon.innerText = b.height / 10 + "m";
-          else alturaPokemon.innerText = b.height / 10 + "cm";
+      idPokemonModal.innerText = "#" + pokeJSON.id;
+      nomePokemonModal.innerText = pokeJSON.name;
+      imgPrincipal.src = pokeJSON.sprites.front_default;
+      mudaCorPokemon(pokeJSON.types[0].type.name, imgPrincipal);
 
-          pesoPokemon.innerText = b.weight / 10 + "kg";
-          habilidade.innerText = b.abilities[0].ability.name;
-          mostraEvolucao(nomePokemonModal.innerText);
-        });
+      if (pokeJSON.height / 10 >= 1)
+        alturaPokemon.innerText = pokeJSON.height / 10 + "m";
+      else alturaPokemon.innerText = pokeJSON.height / 10 + "cm";
+
+      pesoPokemon.innerText = pokeJSON.weight / 10 + "kg";
+      habilidade.innerText = pokeJSON.abilities[0].ability.name;
+      mostraEvolucao(nomePokemonModal.innerText);
     });
-    fechaModal();
   });
+  fechaModal();
 }
+
 setTimeout(mostraModal, 500);
 
 function fechaModal() {
@@ -278,21 +282,23 @@ function pesquisaModal() {
   const pesoPokemon = modal.querySelector(".peso-pokemon");
   const habilidade = modal.querySelector(".habilidade-pokemon");
 
-  fetch(`https://pokeapi.co/api/v2/pokemon/${nomePokemon}`)
-    .then((r) => r.json())
-    .then((b) => {
-      idPokemonModal.innerText = "#" + b.id;
-      nomePokemonModal.innerText = b.name;
-      imgPrincipal.src = b.sprites.front_default;
-      mudaCorPokemon(b.types[0].type.name, imgPrincipal);
+  if (nomePokemon !== "") {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${nomePokemon}`)
+      .then((r) => r.json())
+      .then((b) => {
+        idPokemonModal.innerText = "#" + b.id;
+        nomePokemonModal.innerText = b.name;
+        imgPrincipal.src = b.sprites.front_default;
+        mudaCorPokemon(b.types[0].type.name, imgPrincipal);
 
-      if (b.height / 10 >= 1) alturaPokemon.innerText = b.height / 10 + "m";
-      else alturaPokemon.innerText = b.height / 10 + "cm";
+        if (b.height / 10 >= 1) alturaPokemon.innerText = b.height / 10 + "m";
+        else alturaPokemon.innerText = b.height / 10 + "cm";
 
-      pesoPokemon.innerText = b.weight / 10 + "kg";
-      habilidade.innerText = b.abilities[0].ability.name;
-      mostraEvolucao(nomePokemonModal.innerText);
-      modal.showModal();
-    });
-  fechaModal();
+        pesoPokemon.innerText = b.weight / 10 + "kg";
+        habilidade.innerText = b.abilities[0].ability.name;
+        mostraEvolucao(nomePokemonModal.innerText);
+        modal.showModal();
+      });
+    fechaModal();
+  }
 }
