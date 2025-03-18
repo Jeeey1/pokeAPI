@@ -1,36 +1,68 @@
+body {
+  background-color: #def4e8;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+
 .container-pokemon {
-  width: 180px;
-  height: 200px;
+  width: 300px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 5px;
+  background-color: #fff;
 }
 
-.container-pokemon:hover{
-  background-color:rgba(0.5, 0.5, 0.5, 0.1);
+.container-pokemon:hover {
+  background-color: rgba(0.5, 0.5, 0.5, 0.1);
   cursor: pointer;
 }
 
 img {
-  border-radius: 50%;
-  width: 110px;
   margin-right: auto;
   margin-left: auto;
   margin-top: 10px;
+  position: relative;
+}
+
+.img-home {
+  width: 250px;
+  background-image: url(assets/fundo_pokedex.png);
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
 }
 
 .id-pokemon {
   margin: 0;
-  padding-left: 5px;
   margin-top: 25px;
-  color: gray;
+  margin-left: 5px;
   font-weight: bold;
+  font-size: 1.5rem;
+  max-width: max-content;
+  border-radius: 10px;
+  padding: 10px;
+  color: #fff;
+  position: absolute;
 }
 
 .nome-pokemon {
   padding-left: 10px;
   margin: 0px;
+  margin-top: 25px;
+  font-size: 1.15rem;
+  margin-left: 15px;
+}
+
+.type-pokemon {
+  padding-left: 10px;
+  margin-left: 15px;
 }
 
 .section-pokemon {
@@ -50,8 +82,10 @@ img {
 }
 
 .section-pesquisa input {
-  width: 250px;
+  padding: 10px;
+  width: 400px;
   height: 20px;
+  font-size: 1.5rem;
 }
 
 .section-pesquisa button {
@@ -62,7 +96,7 @@ img {
   border-radius: 5px;
 }
 
-.section-pesquisa button:hover{
+.section-pesquisa button:hover {
   background-color: rgba(14, 90, 138, 0.8);
   cursor: pointer;
 }
@@ -77,14 +111,14 @@ img {
   padding-left: 10px;
 }
 
-.close-top{
+.close-top {
   margin-right: 10px;
   border: none;
   background-color: #fff;
   font-size: 1rem;
 }
 
-.close-top:hover{
+.close-top:hover {
   color: red;
   cursor: pointer;
 }
@@ -98,24 +132,24 @@ img {
   color: #000;
 }
 
-.open-modal hr{
+.open-modal hr {
   width: 100%;
   box-sizing: border-box;
   /* margin-left: -10px; */
 }
 
-.top{
+.top {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.top div .nome-pokemon{
+.top div .nome-pokemon {
   margin-top: 10px;
-  color:  #000;
+  color: #000;
 }
 
-.top div .id-pokemon{
+.top div .id-pokemon {
   margin: 0;
   margin-top: 5px;
 }
@@ -126,7 +160,7 @@ img {
   border-radius: 50%;
 }
 
-.open-modal p:nth-child(7){
+.open-modal p:nth-child(7) {
   margin-bottom: 0;
 }
 .evolution-pokemon img {
@@ -137,7 +171,7 @@ img {
 .close-bottom {
   margin-bottom: 10px;
   padding: 6px 10px;
-  background-color: #6C757D;
+  background-color: #6c757d;
   border: none;
   color: #fff;
   font-weight: bold;
@@ -148,4 +182,39 @@ img {
 .close-bottom:hover {
   cursor: pointer;
   background-color: rgba(108, 115, 127, 0.7);
+}
+
+@media (max-width: 950px) {
+  .section-pokemon {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .section-pokemon {
+    grid-template-columns: 1fr;
+  }
+
+  .logo img {
+    width: 250px;
+  }
+
+  .section-pesquisa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .section-pesquisa input {
+    width: 300px;
+    padding: 5px 10px;
+  }
+
+  .section-pesquisa button {
+    max-width: max-content;
+    padding: 5px 10px;
+  }
 }
